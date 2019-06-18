@@ -3,12 +3,14 @@
                    assembly="Loja"
                    namespace="Loja.Entidades">
     <class name="Categoria">
+      <cache usage="nonstrict-read-write"/>
       <id name="Id">
         <generator class="identity"/>
       </id>
       <property name="Nome"/>
 
       <bag name="Produtos" fetch="join">
+        <cache usage="nonstrict-read-write"/>
         <key column="CategoriaId"/>
         <one-to-many class="Produto"/>
       </bag>

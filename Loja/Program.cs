@@ -18,14 +18,24 @@ namespace Loja
         {
             //NHibernateHelper.GeraSchema();
 
+            PessoaFisica pessoaFisica = new PessoaFisica();
+            pessoaFisica.Nome = "Luana";
+            pessoaFisica.CPF = "123.456.789-00";
+
+            PessoaFisica pessoaFisica1 = new PessoaFisica();
+            pessoaFisica1.Nome = "Alberto";
+            pessoaFisica1.CPF = "014.000.555-88";
+
+            PessoaJuridica pessoaJuridica = new PessoaJuridica();
+            pessoaJuridica.Nome = "Caelum";
+            pessoaJuridica.CNPJ = "123.456/0001-99";
+
             ISession session = NHibernateHelper.AbreSession();
+            UsuarioDAO usuarioDAO = new UsuarioDAO(session);
 
-            String hql = "select p.Categoria as Categoria, count(p) as NumeroDePedidos from Produto p group by p.Categoria";
-            IQuery query = session.CreateQuery(hql);
-            query.SetResultTransformer(Transformers.AliasToBean<ProdutosPorCategoria>());
-
-            IList<ProdutosPorCategoria> relatorio = query.List<ProdutosPorCategoria>();
-            session.Close();
+            usuarioDAO.Adiciona(pessoaFisica);
+            usuarioDAO.Adiciona(pessoaFisica1);
+            usuarioDAO.Adiciona(pessoaJuridica);
 
             Console.Read();
         }

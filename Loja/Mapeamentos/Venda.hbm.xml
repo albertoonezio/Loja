@@ -2,14 +2,15 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Loja"
                    namespace="Loja.Entidades">
-  <class name="Produto">
-    <cache usage="nonstrict-read-write"/>
+  <class name="Venda">
     <id name="Id">
       <generator class="identity"/>
     </id>
-    <property name="Nome"/>
-    <property name="Preco"/>
+    <many-to-one name="Cliente" column="ClienteId"/>
 
-    <many-to-one name="Categoria" column="CategoriaId" fetch="join"/>
+    <bag name="Produtos" table="Venda_Produtos">
+      <key column="VendaId"/>
+      <many-to-many column="ProdutoId" class="Produto"/>
+    </bag>
   </class>
 </hibernate-mapping>
